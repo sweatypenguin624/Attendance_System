@@ -7,8 +7,8 @@ from datetime import datetime
 
 def send_attendance_email(teacher_email, attendance_file):
     # Gmail sender details
-    sender_email = "yogeshsoni230305@gmail.com"    # Replace with your Gmail address
-    password = "lvlz wzwi mrbb vqoe"         # Replace with your 16-character App Password
+    sender_email = "sweatypenguin624@gmail.com"    # Replace with your Gmail address
+    password = "*******"         # Replace with your 16-character App Password
     
     current_date = datetime.now().strftime("%Y-%m-%d")
     subject = f"Attendance Report - {current_date}"
