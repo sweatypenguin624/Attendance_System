@@ -198,7 +198,8 @@ def is_within_one_hour(name, filepath):
         header = next(reader, None)  # Skip header
         for row in reader:
             if row and row[0] == name:  # If this person exists in the file
-                last_time_str = row[1]  # Time from CSV
+                last_time_str = row[2]
+  # Time from CSV
                 last_time = datetime.strptime(last_time_str, "%H:%M:%S")
                 current_time = datetime.now().replace(minute=0, second=0, microsecond=0)
                 time_diff = current_time - last_time.replace(year=current_time.year, month=current_time.month, day=current_time.day)
@@ -238,33 +239,74 @@ def process_frame():
         csv_filepath = os.path.join(ATTENDANCE_FOLDER, csv_filename)
 
         if len(result) > 0 and len(result[0]) > 0:  # Ensure there are results and matches
-            identity = result[0].iloc[0]['identity']
-            distance = result[0].iloc[0]['distance']  # Check matching distance
+            # identity = result[0].iloc[0]['identity']
+            # distance = result[0].iloc[0]['distance']  # Check matching distance
 
-            # Only consider a match if the distance is below the threshold
-            if distance < 0.6:  # Stricter matching
-                name = identity.split('/')[-1]
-                message = f"Matched: {name} (Distance: {distance:.4f})"
+            # # Only consider a match if the distance is below the threshold
+            # if distance < 0.6:  # Stricter matching
+            #     name_roll = os.path.splitext(filename_only)[0]  # Remove extension
+            #     parts = name_roll.rsplit('_', 1)  # Split into name and roll
+            #     if len(parts) == 2:
+            #         name, roll_number = parts
+            #     else:
+            #         name, roll_number = name_roll, "Unknown"
+            #     # message = f"Matched: {name} (Distance: {distance:.4f})"
+            #     message = f"Matched: {name} (Distance: {distance:.4f})"
 
-                # Check if this person was already marked within the last hour
+            #     # Check if this person was already marked within the last hour
+            #     if not is_within_one_hour(name, csv_filepath):
+            #         # Log the match to a CSV file
+            #         file_exists = os.path.isfile(csv_filepath)
+            #         if not file_exists:
+            #             with open(csv_filepath, mode='w', newline='') as f:
+            #                 writer = csv.writer(f)
+            #                 writer.writerow(["Name", "Roll Number", "Time", "Distance"])
+
+
+            #         with open(csv_filepath, mode='a', newline='') as f:
+            #             time_now = datetime.now().strftime("%H:%M:%S")
+            #             writer = csv.writer(f)
+            #             writer.writerow([name, roll_number, time_now, distance])
+
+
+            #         response = {'status': 'success', 'message': message}
+            #     else:
+            #         response = {'status': 'success', 'message': f"Already marked within last hour: {name}"}
+            # else:
+            #     response = {'status': 'success', 'message': "Unknown Face (Distance too high)"}
+            match = result[0].iloc[0]
+            identity = match['identity']
+            distance = match['distance']
+
+            if distance < 0.6:
+                filename_only = os.path.basename(identity)
+                name_roll = os.path.splitext(filename_only)[0]
+                parts = name_roll.rsplit('_', 1)
+                if len(parts) == 2:
+                    name, roll_number = parts
+                    roll_number = f"1MV24RI{roll_number}"
+                else:
+                    name, roll_number = name_roll, "Unknown"
+
+                message = f"Matched: {name} ({roll_number}) (Distance: {distance:.4f})"
+
                 if not is_within_one_hour(name, csv_filepath):
-                    # Log the match to a CSV file
                     file_exists = os.path.isfile(csv_filepath)
                     if not file_exists:
                         with open(csv_filepath, mode='w', newline='') as f:
                             writer = csv.writer(f)
-                            writer.writerow(["Name", "Time", "Distance"])
+                            writer.writerow(["Name", "Roll Number", "Time", "Distance"])
 
                     with open(csv_filepath, mode='a', newline='') as f:
                         time_now = datetime.now().strftime("%H:%M:%S")
                         writer = csv.writer(f)
-                        writer.writerow([name, time_now, distance])
+                        writer.writerow([name, roll_number, time_now, distance])
 
                     response = {'status': 'success', 'message': message}
                 else:
-                    response = {'status': 'success', 'message': f"Already marked within last hour: {name}"}
-            else:
-                response = {'status': 'success', 'message': "Unknown Face (Distance too high)"}
+                    response = {'status': 'success', 'message': f"Already marked within last hour: {name} (Roll No: {roll_number})"}
+
+
         else:
             response = {'status': 'success', 'message': "No Face Detected or Unknown Face"}
 
@@ -289,4 +331,8 @@ def send_email():
         return jsonify({'message': 'Attendance file not found!'})
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5008)
+    # app.run(debug=True, host='0.0.0.0', port=5008)
+    # app.run(debug=True, host='0.0.0.0', port=5008, ssl_context=('cert.pem', 'key.pem'))
+    # app.run(debug=True, host='0.0.0.0', port=5008, ssl_context='adhoc')
+    app.run(host='0.0.0.0', port=5008)
+
