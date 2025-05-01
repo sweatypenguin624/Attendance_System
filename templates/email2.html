@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello Teach</title>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #000000;
+        font-family: "Jost", sans-serif;
+        color: #ffffff;
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 600;
+        margin-bottom: 10px; /* Reduced gap between h1 and h2 */
+        letter-spacing: 1px;
+        background: linear-gradient(
+          to right,
+          #6b7280,
+          #d1d5db
+        ); /* Gray gradient */
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      h2 {
+        font-size: 2rem;
+        font-weight: 400;
+        margin-top: 0px; /* Reduced margin */
+        padding-top: 0px;
+        background: linear-gradient(
+          to right,
+          #ffffff,
+          #d1d5db
+        ); /* White gradient */
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .btn.secondary {
+        padding: 0.9rem 2.2rem;
+        font-size: 1.1rem;
+        background-color: #ffffff;
+        color: #000000;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        margin-top: 20px; /* Added gap between h2 and button */
+      }
+
+      .btn.secondary:hover {
+        background-color: #e5e5e5;
+        transform: translateY(-2px);
+      }
+
+      #emailresult {
+        margin-top: 20px;
+        font-size: 1rem;
+        color: #22c55e;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello Teacher!</h1>
+    <h2>One Stop Solution for Attendance.</h2>
+
+    <button onclick="sendEmail()" class="btn secondary">Send Attendance</button>
+    <div id="emailresult" class="emailresult"></div>
+
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>

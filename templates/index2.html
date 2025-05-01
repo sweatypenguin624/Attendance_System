@@ -1,0 +1,106 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Face Recognition</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Real-Time Face Recognition</h1>
+      <div class="card">
+        <video id="video" autoplay></video>
+        <button id="capture-btn">Scan Face</button>
+        <button onclick="sendEmail()" class="btn">Send Attendance Email</button>
+
+        <div id="result"></div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Face Recognition System</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Corinthia:wght@400;700&family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(
+        135deg,
+        #000000,
+        #1e3a8a
+      ); /* Bluish gradient */
+      font-family: "Jost", sans-serif;
+      color: #ffffff;
+    }
+    .btn.secondary {
+      padding: 0.9rem 2.2rem;
+      font-size: 1.1rem;
+      background-color: #ffffff;
+      color: #000000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      margin-top: 20px; /* Added gap between h2 and button */
+    }
+
+    .btn.secondary:hover {
+      background-color: #e5e5e5;
+      transform: translateY(-2px);
+    }
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 600;
+      margin-bottom: 10px; /* Reduced gap between h1 and h2 */
+      letter-spacing: 1px;
+      background: linear-gradient(
+        to right,
+        #6b7280,
+        #d1d5db
+      ); /* Gray gradient */
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1 class="title">Face Recognition System</h1>
+      <div class="card">
+        <video id="video" autoplay></video>
+        <div class="buttons">
+          <button id="capture-btn" class="btn primary">Scan Face</button>
+          <!-- commenting out send attendance button kyuki uska alag route chahiye -->
+          <!-- <button onclick="sendEmail()" class="btn secondary">
+            Send Attendance
+          </button> -->
+        </div>
+        <div id="result" class="result"></div>
+      </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>

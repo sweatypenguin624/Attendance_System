@@ -43,16 +43,58 @@
 const video = document.getElementById('video');
 const captureBtn = document.getElementById('capture-btn');
 const resultDiv = document.getElementById('result');
+const emailresult = document.getElementById('emailresult');
 
-navigator.mediaDevices.getUserMedia({ video: true })
-    .then(stream => {
-        video.srcObject = stream;
-    })
-    .catch(err => {
-        console.error("Error accessing webcam: ", err);
-        resultDiv.textContent = "Error: Could not access webcam.";
-        resultDiv.style.color = "#dc3545"; // Red for error
-    });
+
+// navigator.mediaDevices.getUserMedia({ video: true })
+//     .then(stream => {
+//         video.srcObject = stream;
+//     })
+//     .catch(err => {
+//         console.error("Error accessing webcam: ", err);
+//         resultDiv.textContent = "Error: Could not access webcam.";
+//         resultDiv.style.color = "#dc3545"; // Red for error
+//     });
+
+// if (currentPath === "/") {
+//     navigator.mediaDevices.getUserMedia({ video: true })
+//     .then(stream => {
+//         video.srcObject = stream;
+//     })
+//     .catch(err => {
+//         console.error("Error accessing webcam: ", err);
+//         resultDiv.textContent = "Error: Could not access webcam.";
+//         resultDiv.style.color = "#dc3545"; // Red for error
+//     });
+
+//   console.log("Loaded:", currentPath);
+// };
+
+document.addEventListener("DOMContentLoaded", () => {
+    const currentPath = window.location.pathname;
+    
+    if (currentPath === "/") {
+      const video = document.getElementById("video");
+      const resultDiv = document.getElementById("result");
+  
+      if (video && resultDiv) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => {
+            video.srcObject = stream;
+          })
+          .catch(err => {
+            console.error("Error accessing webcam:", err);
+            resultDiv.textContent = "Error: Could not access webcam.";
+            resultDiv.style.color = "#dc3545"; // Red for error
+          });
+  
+        console.log("Webcam initialized on route:", currentPath);
+      } else {
+        console.warn("Video or result element not found in DOM.");
+      }
+    }
+  });
+  
 
 captureBtn.addEventListener('click', async () => {
     resultDiv.textContent = "Processing..."; // Show loading state
@@ -92,16 +134,16 @@ function sendEmail() {
     .then(data => {
         alert(data.message);
         if (data.message.includes('Sent!')) {
-            resultDiv.textContent = "Attendance email sent successfully!";
-            resultDiv.style.color = "#28a745";
+            emailresult.textContent = "Attendance email sent successfully!";
+            emailresult.style.color = "#28a745";
         } else {
-            resultDiv.textContent = "Failed to send email.";
-            resultDiv.style.color = "#dc3545";
+            emailresult.textContent = "Failed to send email.";
+            emailresult.style.color = "#dc3545";
         }
     })
     .catch(error => {
-        resultDiv.textContent = "Error: Failed to send email.";
-        resultDiv.style.color = "#dc3545";
+        emailresult.textContent = "Error: Failed to send email.";
+        emailresult.style.color = "#dc3545";
         console.error('Error:', error);
     });
 }

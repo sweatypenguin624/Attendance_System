@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello Student</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #000000 60%, #1e3a8a 100%);
+        font-family: "Jost", sans-serif, Arial, Helvetica;
+        color: #ffffff;
+      }
+
+      .container {
+        text-align: center;
+      }
+
+      h1.title {
+        font-size: 3.5rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+        background: linear-gradient(to right, #6b7280, #d1d5db);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .spinner {
+        border: 8px solid rgba(255, 255, 255, 0.1);
+        border-top: 8px solid #ffffff;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1.2s linear infinite;
+        margin: 20px auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      p.subtitle {
+        font-size: 1.2rem;
+        opacity: 0.8;
+        margin-top: 10px;
+      }
+    </style>
+
+    <script>
+      setTimeout(() => {
+        window.location.href =
+          "https://8f37-2401-4900-91f0-432c-c16e-33b4-20e2-91da.ngrok-free.app"; // Replace with your live link
+      }, 1000);
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Hello Student</h1>
+      <div class="spinner"></div>
+      <p class="subtitle">Redirecting you shortly...</p>
+    </div>
+  </body>
+  <script>
+    // Send a custom request with a header containing "127"
+    fetch(
+      "https://8f37-2401-4900-91f0-432c-c16e-33b4-20e2-91da.ngrok-free.app/ping",
+      {
+        method: "GET",
+        headers: {
+          "X-Custom-Source": "127.0.0.1",
+        },
+      }
+    )
+      .then(() => {
+        // Redirect after the request
+        window.location.href =
+          "https://8f37-2401-4900-91f0-432c-c16e-33b4-20e2-91da.ngrok-free.app";
+      })
+      .catch((err) => {
+        console.error("Ping failed", err);
+        window.location.href =
+          "https://8f37-2401-4900-91f0-432c-c16e-33b4-20e2-91da.ngrok-free.app";
+      });
+  </script>
+</html>

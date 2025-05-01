@@ -3,6 +3,13 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 import os
+# from your_email_script import filename
+from datetime import datetime
+
+current_date = datetime.now().strftime("%Y-%m-%d")
+
+input=f"attendance_{current_date}.txt"
+input_address= "attendance/"+input
 
 def txt_to_pdf(input_txt_path, output_pdf_path):
     """
@@ -61,8 +68,13 @@ def txt_to_pdf(input_txt_path, output_pdf_path):
         # Add title
         styles = getSampleStyleSheet()
         title = Paragraph("Student Attendance Report", styles['Title'])
+        current_date = datetime.now().strftime("%B %d, %Y")  # Example: April 15, 2025
+        date_paragraph = Paragraph(f"<b>Date:</b> {current_date}", styles['Normal'])
         elements.append(title)
         elements.append(Paragraph("<br/><br/>", styles['Normal']))  # Add some space
+        elements.append(date_paragraph)
+        elements.append(Paragraph("<br/><br/>", styles['Normal']))  # Add some space
+
 
         # Create table data
         table_data = [["USN", "Name", "Time", "Status"]]  # Header
@@ -101,8 +113,8 @@ def txt_to_pdf(input_txt_path, output_pdf_path):
         return f"Error creating PDF: {str(e)}"
 
 # Example usage
-if _name_ == "_main_":
-    input_file = "input.txt"
-    output_file = "output.pdf"
+if __name__ == "__main__":
+    input_file = input_address
+    output_file = f"attendance_{current_date}.pdf"
     result = txt_to_pdf(input_file, output_file)
     print(result)
